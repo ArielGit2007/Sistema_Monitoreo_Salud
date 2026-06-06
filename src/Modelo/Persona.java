@@ -1,20 +1,13 @@
 package Modelo;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable {
     private String Nombre,Apellido;
     private int Edad;
     private double altura, peso;
     private String genero;
 
-    //Cosntructor de la clase
-    public Persona(String Nombre, String Apellido, int Edad, double altura, double peso, String genero) {
-        this.Nombre = Nombre;
-        this.Apellido = Apellido;
-        this.Edad = Edad;
-        this.altura = altura;
-        this.peso = peso;
-        this.genero = genero;
-    }
     //Setters y getters
 
     public String getNombre() {return Nombre;}
