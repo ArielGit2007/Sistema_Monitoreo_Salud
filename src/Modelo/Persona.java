@@ -8,6 +8,11 @@ public class Persona implements Serializable {
     private double altura, peso;
     private String genero;
 
+    //Clases añadidas
+    actividadFisica actF = new actividadFisica();
+    datosMedicos med = new datosMedicos();
+    historial hist = new historial();
+
     //Setters y getters
 
     public String getNombre() {return Nombre;}
