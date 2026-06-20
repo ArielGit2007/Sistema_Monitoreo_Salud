@@ -9,6 +9,8 @@ public class datosMedicos implements Serializable {
     private double horasSueño;
     private int frecuenciaCardiaca;
     private double consumoAgua;
+    public double consumoObjetivoAgua;
+    public int frecuenciaMinima, frecuenciaMaxima;
 
 
     public double calcularIMC(Persona per){
@@ -27,8 +29,21 @@ public class datosMedicos implements Serializable {
                 consumoObjetivo+=1.0;
             }
         }
+        consumoObjetivoAgua=consumoObjetivo;
         return consumoAgua<consumoObjetivo;
 
+    }
+    public String calcularFrecuenciaEsperada(int edad, String genero){
+        if (genero.equalsIgnoreCase("Masculino")){
+            frecuenciaMinima= Math.round(220-edad)*50/100;
+            frecuenciaMaxima= Math.round(220-edad)*85/100;
+        }
+        else if (genero.equalsIgnoreCase("Femenino")){
+            frecuenciaMinima= Math.round(226-edad)*50/100;
+            frecuenciaMaxima= Math.round(226-edad)*85/100;
+        }
+
+        return "Tu frecuencia cardíaca esperada durante el ejercicio es entre "+frecuenciaMinima+" y "+frecuenciaMaxima+" latidos por minuto.";
     }
 
     public int getNivelEstres() {return nivelEstres;}
