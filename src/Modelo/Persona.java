@@ -11,7 +11,6 @@ public class Persona implements Serializable {
     //Clases añadidas
     public actividadFisica actF = new actividadFisica();
    public datosMedicos med = new datosMedicos();
-    public historial hist = new historial();
 
     //Setters y getters
 

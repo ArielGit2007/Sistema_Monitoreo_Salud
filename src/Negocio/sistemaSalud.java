@@ -5,22 +5,23 @@ import Modelo.historial;
 import Modelo.reporteSalud;
 
 public class sistemaSalud {
-    private Persona personaActual;
+    private Persona personaActual = new Persona();
+    private historial hist = new historial();
 
-    public boolean cargarDatosGuardados() {
+    public void cargarDatosGuardados() {
         try {
-            personaActual = new Persona();
-            personaActual.hist.cargarEnArchivo("historial.dat");
+            hist.cargarEnArchivo("historial.dat"); // sistema carga todo
 
-            if (!personaActual.hist.Personas.isEmpty()) {
-                // Obtener la persona más reciente (última de la lista)
-                personaActual = personaActual.hist.Personas.get(personaActual.hist.Personas.size() - 1);
-                return true;
+            if (hist.Personas != null && !hist.Personas.isEmpty()) {
+                personaActual = hist.Personas.get(hist.Personas.size() - 1);
+            } else {
+                personaActual = null;
             }
+
         } catch (Exception e) {
-            return false;
+            System.out.println("Error cargando datos: " + e.getMessage());
+            personaActual = null;
         }
-        return false;
     }
     public void registrarPersona(String nombre, String apellido, int edad,
                                  double altura, double peso, String genero,
@@ -47,7 +48,7 @@ public class sistemaSalud {
         personaActual.actF.CaloriasQuemadas(personaActual.getPeso());
 
         //Agregar al historial
-        personaActual.hist.agregarDatos(personaActual);
+        hist.agregarDatos(personaActual);
 
     }
 
@@ -75,7 +76,7 @@ public class sistemaSalud {
         personaActual.actF.CaloriasQuemadas(personaActual.getPeso());
 
         // Agregar al historial como nuevo registro actualizado
-        personaActual.hist.agregarDatos(personaActual);
+        hist.agregarDatos(personaActual);
     }
 
     public String generarReporte() {
@@ -91,7 +92,7 @@ public class sistemaSalud {
         if (personaActual == null) {
             return null;
         }
-        return personaActual.hist;
+        return hist;
     }
 
 
