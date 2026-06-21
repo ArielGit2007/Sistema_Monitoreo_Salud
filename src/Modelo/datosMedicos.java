@@ -30,7 +30,7 @@ public class datosMedicos implements Serializable {
             }
         }
         consumoObjetivoAgua=consumoObjetivo;
-        return consumoAgua<consumoObjetivo;
+        return consumoAgua>=consumoObjetivo;
 
     }
     public String calcularFrecuenciaEsperada(int edad, String genero){

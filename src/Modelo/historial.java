@@ -9,9 +9,9 @@ public class historial {
     ArrayList<actividadFisica> act = new ArrayList<actividadFisica>();
     ArrayList<datosMedicos> medicos = new ArrayList<>();
 
-    public void agregarDatos(Persona per, actividadFisica actF,datosMedicos med){
-        act.add(actF);
-        medicos.add(med);
+    public void agregarDatos(Persona per){
+        act.add(per.actF);
+        medicos.add(per.med);
         Personas.add(per);
         try{
             guardarEnArchivo("historial.dat");
