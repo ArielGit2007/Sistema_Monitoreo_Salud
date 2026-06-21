@@ -9,9 +9,9 @@ public class Persona implements Serializable {
     private String genero;
 
     //Clases añadidas
-    actividadFisica actF = new actividadFisica();
-    datosMedicos med = new datosMedicos();
-    historial hist = new historial();
+    public actividadFisica actF = new actividadFisica();
+   public datosMedicos med = new datosMedicos();
+    public historial hist = new historial();
 
     //Setters y getters
 

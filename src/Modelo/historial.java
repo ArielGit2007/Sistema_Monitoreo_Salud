@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 
 public class historial {
-    ArrayList<Persona> Personas =new ArrayList<Persona>();
-    ArrayList<actividadFisica> act = new ArrayList<actividadFisica>();
-    ArrayList<datosMedicos> medicos = new ArrayList<>();
+   public ArrayList<Persona> Personas =new ArrayList<Persona>();
+   public ArrayList<actividadFisica> act = new ArrayList<actividadFisica>();
+   public ArrayList<datosMedicos> medicos = new ArrayList<>();
 
     public void agregarDatos(Persona per){
         act.add(per.actF);
@@ -33,9 +33,9 @@ public void cargarEnArchivo(String nombre) throws IOException, ClassNotFoundExce
         medicos=(ArrayList<datosMedicos>) ois.readObject();
         ois.close();
 }
-    ArrayList<Persona> ultimosPersonas = new ArrayList<>();
-    ArrayList<actividadFisica> ultimosAct = new ArrayList<>();
-    ArrayList<datosMedicos> ultimosMedicos = new ArrayList<>();
+    public ArrayList<Persona> ultimosPersonas = new ArrayList<>();
+    public ArrayList<actividadFisica> ultimosAct = new ArrayList<>();
+    public ArrayList<datosMedicos> ultimosMedicos = new ArrayList<>();
 
     public void mostrarUltimos(int cantidad){
         ultimosPersonas.clear();  // Limpia la lista
