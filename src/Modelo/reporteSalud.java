@@ -75,5 +75,43 @@ public class reporteSalud {
         }
     }
 
+    public String generarReporte(){
+        StringBuilder reporte= new StringBuilder();
+
+        //Datos personales
+        reporte.append("DATOS PERSONALES:\n");
+        reporte.append("Nombre: ").append(persona.getNombre()).append(" ").append(persona.getApellido()).append("\n");
+        reporte.append("Edad: ").append(persona.getEdad()).append(" años\n");
+        reporte.append("Género: ").append(persona.getGenero()).append("\n");
+        reporte.append("Altura: ").append(persona.getAltura()).append(" m\n");
+        reporte.append("Peso: ").append(persona.getPeso()).append(" kg\n");
+        reporte.append("Fecha del Reporte: ").append(fechaReporte).append("\n\n");
+        //Datos de salud
+        reporte.append("MÉTRICAS DE SALUD:\n");
+        double imc = persona.med.calcularIMC(persona);
+        reporte.append("IMC: ").append(String.format("%.2f", imc)).append("\n");
+        reporte.append("Frecuencia Cardíaca: ").append(persona.med.getFrecuenciaCardiaca()).append(" lpm\n");
+        reporte.append("Nivel de Estrés: ").append(persona.med.getNivelEstres()).append("/10\n");
+        reporte.append("Horas de Sueño: ").append(persona.med.getHorasSueño()).append(" horas\n");
+        reporte.append("Consumo de Agua: ").append(persona.med.getConsumoAgua()).append(" L\n\n");
+        //Actividad fisica
+        reporte.append("ACTIVIDAD FÍSICA:\n");
+        reporte.append("Tipo de Actividad: ").append(persona.actF.tipoActividad).append("\n");
+        reporte.append("Duración: ").append(persona.actF.duracionMinutos).append(" minutos\n");
+        reporte.append("Calorías Quemadas: ").append(persona.actF.caloriasQuemadas).append(" kcal\n\n");
+        //Recomendaciones
+        reporte.append("RECOMENDACIONES:\n");
+        reporte.append("\n• IMC: ").append(recomendaciones.RcIMC(imc));
+        reporte.append("\n• Sueño: ").append(recomendaciones.RcHorasSueño(persona.med.getHorasSueño(), persona.getEdad()));
+        reporte.append("\n• Estrés: ").append(recomendaciones.RcNivelEstres(persona.med.getNivelEstres()));
+        reporte.append("\n• Agua: ").append(recomendaciones.RcConsumoAgua(persona.med.consumoAguaAdecuado(persona.actF, persona), persona));
+        reporte.append("\n• Actividad: ").append(recomendaciones.RcActividadFisica(persona.getEdad(), persona.actF.duracionMinutos));
+        reporte.append("\n• Frecuencia Cardíaca: ").append(recomendaciones.RcFrecuenciaCardiaca(persona.med.getFrecuenciaCardiaca(), persona.med.frecuenciaMinima, persona.med.frecuenciaMaxima));
+        //Estado general
+        reporte.append("\n\nESTADO GENERAL: ").append(estadoGeneral);
+        reporte.append("\nPUNTAJE DE SALUD: ").append(puntajeSalud).append("/100");
+
+        return reporte.toString();
+    }
 
 }
