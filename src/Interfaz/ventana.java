@@ -1,5 +1,6 @@
 package Interfaz;
 
+import Modelo.Persona;
 import Negocio.sistemaSalud;
 
 import javax.swing.*;
@@ -43,6 +44,7 @@ public class ventana {
             v.mostrarPanel(v.panelPrincipal);
         }
         else{
+            v.crearPanelRegistro();
             v.mostrarPanel(v.panelRegistro);
 
         }
@@ -89,6 +91,8 @@ public class ventana {
     }
     private void crearPanelRegistro() {
 
+        Persona p = new Persona();
+        p=sistema.getPersonaActual();
         panelRegistro = new JPanel(new BorderLayout());
         panelRegistro.setBackground(new Color(240, 248, 255));
 
@@ -107,17 +111,26 @@ public class ventana {
         subtitulo.setForeground(Color.WHITE);
         subtitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        panelSuperior.add(Box.createVerticalGlue());
-        panelSuperior.add(titulo);
-        panelSuperior.add(Box.createVerticalStrut(8));
-        panelSuperior.add(subtitulo);
-        panelSuperior.add(Box.createVerticalGlue());
+
+        if (p==null){
+            panelSuperior.add(Box.createVerticalGlue());
+            panelSuperior.add(titulo);
+            panelSuperior.add(Box.createVerticalStrut(8));
+            panelSuperior.add(subtitulo);
+            panelSuperior.add(Box.createVerticalGlue());
+        }
+        else {
+            panelSuperior.add(Box.createVerticalStrut(8));
+            panelSuperior.add(titulo);
+            panelSuperior.setPreferredSize(new Dimension(1000, 75));
+        }
 
         panelRegistro.add(panelSuperior, BorderLayout.NORTH);
 
         JPanel panelForm = new JPanel(new GridBagLayout());
         panelForm.setBackground(Color.WHITE);
         panelForm.setBorder(BorderFactory.createEmptyBorder(25, 40, 25, 40));
+
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(8, 8, 8, 8);
@@ -135,6 +148,19 @@ public class ventana {
         JTextField textAgua = new JTextField(20);
         JTextField textActividad = new JTextField(20);
         JTextField textDuracion = new JTextField(20);
+
+        boolean existe = (p != null);
+        if (p != null) {
+            textNombre.setEditable(false);
+            textApellido.setEditable(false);
+            textNombre.setBackground(new Color(235,235,235));
+            textApellido.setBackground(new Color(235,235,235));
+            textNombre.setText(p.getNombre());
+            textApellido.setText(p.getApellido());
+        } else {
+            textNombre.setEditable(true);
+            textApellido.setEditable(true);
+        }
 
         String[] etiquetas = {
                 "Nombre",
@@ -180,12 +206,18 @@ public class ventana {
             panelForm.add(campos[i], gbc);
         }
 
-        panelRegistro.add(new JScrollPane(panelForm), BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(panelForm);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
+        scrollPane.getVerticalScrollBar().setBlockIncrement(64);
+        panelRegistro.add(scrollPane, BorderLayout.CENTER);
 
         JPanel panelBotones = new JPanel();
         panelBotones.setBackground(Color.WHITE);
 
         JButton btnRegistrar = new JButton("Registrar");
+        if (p != null) {
+            btnRegistrar.setText("Actualizar");
+        }
         JButton btnLimpiar = new JButton("Limpiar");
 
         btnRegistrar.setBackground(new Color(0, 170, 255));
@@ -199,6 +231,25 @@ public class ventana {
         panelBotones.add(btnRegistrar);
         panelBotones.add(Box.createHorizontalStrut(20));
         panelBotones.add(btnLimpiar);
+        if (p != null) {
+            JButton btnVolver;
+            btnVolver=crearBotonVolver();
+            btnVolver.setBackground(new Color(0, 170, 255));
+            btnVolver.setForeground(Color.WHITE);
+            btnVolver.setFont(new Font("Segoe UI", Font.BOLD, 14));
+            btnVolver.setFocusPainted(false);
+            btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnVolver.setBackground(new Color(33, 159, 255));
+                }
+
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    btnVolver.setBackground(new Color(0, 170, 255));
+                }
+            });
+            panelBotones.add(Box.createHorizontalStrut(20));
+            panelBotones.add(btnVolver);
+        }
 
         panelRegistro.add(panelBotones, BorderLayout.SOUTH);
 
@@ -282,6 +333,7 @@ public class ventana {
         JButton btnActualizar = new JButton("2. Actualizar datos");
         JButton btnReporte = new JButton("3. Generar reporte");
         JButton btnHistorial = new JButton("4. Acceder al historial");
+        JButton btnSalir = new JButton("5. Salir");
 
         Dimension btssize = new Dimension(200, 30);
 
@@ -289,11 +341,13 @@ public class ventana {
         btnActualizar.setPreferredSize(btssize);
         btnReporte.setPreferredSize(btssize);
         btnHistorial.setPreferredSize(btssize);
+        btnSalir.setPreferredSize(btssize);
 
         btnVerDatos.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnActualizar.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnReporte.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnHistorial.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnSalir.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         Color azul = new Color(0, 120, 215);
         Font font = new Font("Sans Serif", Font.PLAIN, 16);
@@ -328,6 +382,12 @@ public class ventana {
         btnHistorial.setFocusPainted(false);
         btnHistorial.setBorderPainted(false);
 
+        btnSalir.setBackground(azul);
+        btnSalir.setForeground(Color.WHITE);
+        btnSalir.setFont(font);
+        btnSalir.setFocusPainted(false);
+        btnSalir.setBorderPainted(false);
+
         btnVerDatos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnVerDatos.setBackground(new Color(33, 159, 255));
@@ -336,6 +396,10 @@ public class ventana {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnVerDatos.setBackground(new Color(0, 120, 215));
             }
+        });
+        btnVerDatos.addActionListener(e -> {
+            crearPanelDatos();
+            mostrarPanel(panelDatos);
         });
 
         btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -347,6 +411,10 @@ public class ventana {
                 btnActualizar.setBackground(new Color(0, 120, 215));
             }
         });
+        btnActualizar.addActionListener(e -> {
+            crearPanelRegistro();
+            mostrarPanel(panelRegistro);});
+
         btnReporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnReporte.setBackground(new Color(33, 159, 255));
@@ -356,6 +424,8 @@ public class ventana {
                 btnReporte.setBackground(new Color(0, 120, 215));
             }
         });
+
+
 
         btnHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -367,6 +437,29 @@ public class ventana {
             }
         });
 
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalir.setBackground(new Color(33, 159, 255));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalir.setBackground(new Color(0, 120, 215));
+            }
+        });
+        btnSalir.addActionListener(e -> {
+            int opcion = JOptionPane.showConfirmDialog(
+                    null,
+                    "¿Estás seguro de que deseas salir del sistema?",
+                    "Confirmar salida",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+        });
+
+
         centro.add(Box.createVerticalStrut(15));
         centro.add(btnVerDatos);
         centro.add(Box.createVerticalStrut(10));
@@ -375,10 +468,79 @@ public class ventana {
         centro.add(btnReporte);
         centro.add(Box.createVerticalStrut(10));
         centro.add(btnHistorial);
+        centro.add(Box.createVerticalStrut(10));
+        centro.add(btnSalir);
         centro.add(Box.createVerticalGlue());
 
         panelPrincipal.add(centro, BorderLayout.CENTER);
 
 
+    }
+
+
+    private void crearPanelDatos(){
+        panelDatos = new JPanel(new BorderLayout());
+        JLabel titulo = new JLabel("Datos del usuario", SwingConstants.CENTER);
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        titulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+        titulo.setForeground(new Color(74, 176, 243));
+        panelDatos.add(titulo, BorderLayout.NORTH);
+        panelDatos.setBackground(new Color(195, 250, 241));
+
+        JTextArea areaDatos = new JTextArea();
+        areaDatos.setEditable(false);
+        areaDatos.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        areaDatos.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+
+        Persona p = sistema.getPersonaActual();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nombre: ").append(p.getNombre()).append(" ").append(p.getApellido()).append("\n");
+        sb.append("Edad: ").append(p.getEdad()).append("\n");
+        sb.append("Altura: ").append(p.getAltura()).append(" m\n");
+        sb.append("Peso: ").append(p.getPeso()).append(" kg\n");
+        sb.append("Género: ").append(p.getGenero()).append("\n");
+        sb.append("Nivel de Estrés: ").append(p.med.getNivelEstres()).append("\n");
+        sb.append("Horas de Sueño: ").append(p.med.getHorasSueño()).append("\n");
+        sb.append("Frecuencia Cardíaca: ").append(p.med.getFrecuenciaCardiaca()).append("\n");
+        sb.append("Consumo de Agua: ").append(p.med.getConsumoAgua()).append(" L\n");
+        sb.append("Actividad Física: ").append(p.actF.tipoActividad).append("\n");
+        sb.append("Duración de Actividad: ").append(p.actF.duracionMinutos).append(" min\n");
+
+        JButton btnVolver;
+        btnVolver=crearBotonVolver();
+        btnVolver.setPreferredSize(new Dimension(200, 30));
+        btnVolver.setBackground(new Color(0, 120, 215));
+        btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVolver.setBackground(new Color(33, 159, 255));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVolver.setBackground(new Color(0, 120, 215));
+            }
+        });
+
+        areaDatos.setText(sb.toString());
+
+        panelDatos.add(new JScrollPane(areaDatos), BorderLayout.CENTER);
+        panelDatos.add(btnVolver, BorderLayout.SOUTH);
+    }
+    private void crearPanelHistorial(){
+        panelHistorial = new JPanel(new BorderLayout());
+        JLabel titulo = new JLabel("Historial", SwingConstants.CENTER);
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        titulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+        titulo.setForeground(new Color(74, 176, 243));
+        panelHistorial.add(titulo, BorderLayout.NORTH);
+        panelHistorial.setBackground(new Color(195, 250, 241));
+
+    }
+
+
+    private JButton crearBotonVolver() {
+        JButton btn = new JButton("← Volver al menú");
+        btn.addActionListener(e -> mostrarPanel(panelPrincipal));
+        return btn;
     }
 }

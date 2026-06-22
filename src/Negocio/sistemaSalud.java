@@ -6,7 +6,7 @@ import Modelo.reporteSalud;
 
 public class sistemaSalud {
     private Persona personaActual = new Persona();
-    private historial hist = new historial();
+    public historial hist = new historial();
 
     public void cargarDatosGuardados() {
         try {
