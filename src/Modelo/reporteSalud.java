@@ -9,6 +9,8 @@ public class reporteSalud {
     private Recomendacion recomendaciones;
     private int puntajeSalud=0;
     private String estadoGeneral;
+    private String RangoFrecuencia;
+
 
     public reporteSalud(Persona persona) {
         this.persona = persona;
@@ -54,6 +56,7 @@ public class reporteSalud {
             puntajeSalud += 8;
         }
         // Factor 6: Frecuencia cardíaca
+        this.RangoFrecuencia = persona.med.calcularFrecuenciaEsperada(persona.getEdad(), persona.getGenero());
         if(persona.med.getFrecuenciaCardiaca()>=persona.med.frecuenciaMinima && persona.med.getFrecuenciaCardiaca()<=persona.med.frecuenciaMaxima){
             puntajeSalud += 17;
         }
@@ -91,6 +94,7 @@ public class reporteSalud {
         double imc = persona.med.calcularIMC(persona);
         reporte.append("IMC: ").append(String.format("%.2f", imc)).append("\n");
         reporte.append("Frecuencia Cardíaca: ").append(persona.med.getFrecuenciaCardiaca()).append(" lpm\n");
+        reporte.append("Rango de Frecuencia Cardíaca Esperada: ").append(RangoFrecuencia).append("\n");
         reporte.append("Nivel de Estrés: ").append(persona.med.getNivelEstres()).append("/10\n");
         reporte.append("Horas de Sueño: ").append(persona.med.getHorasSueño()).append(" horas\n");
         reporte.append("Consumo de Agua: ").append(persona.med.getConsumoAgua()).append(" L\n\n");
