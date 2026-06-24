@@ -71,7 +71,7 @@ public class reporteSalud {
         estadoGeneral="Regular";
         }
         else{
-            estadoGeneral="Necesita mejorar";
+            estadoGeneral="Estado de salud comprometido";
         }
     }
 
@@ -101,12 +101,12 @@ public class reporteSalud {
         reporte.append("Calorías Quemadas: ").append(persona.actF.caloriasQuemadas).append(" kcal\n\n");
         //Recomendaciones
         reporte.append("RECOMENDACIONES:\n");
-        reporte.append("\n• IMC: ").append(recomendaciones.RcIMC(imc));
-        reporte.append("\n• Sueño: ").append(recomendaciones.RcHorasSueño(persona.med.getHorasSueño(), persona.getEdad()));
-        reporte.append("\n• Estrés: ").append(recomendaciones.RcNivelEstres(persona.med.getNivelEstres()));
-        reporte.append("\n• Agua: ").append(recomendaciones.RcConsumoAgua(persona.med.consumoAguaAdecuado(persona.actF, persona), persona));
-        reporte.append("\n• Actividad: ").append(recomendaciones.RcActividadFisica(persona.getEdad(), persona.actF.duracionMinutos));
-        reporte.append("\n• Frecuencia Cardíaca: ").append(recomendaciones.RcFrecuenciaCardiaca(persona.med.getFrecuenciaCardiaca(), persona.med.frecuenciaMinima, persona.med.frecuenciaMaxima));
+        reporte.append("\n• IMC: ").append(recomendaciones.RcIMC(imc)).append("\n");
+        reporte.append("\n• Sueño: ").append(recomendaciones.RcHorasSueño(persona.med.getHorasSueño(), persona.getEdad())).append("\n");
+        reporte.append("\n• Estrés: ").append(recomendaciones.RcNivelEstres(persona.med.getNivelEstres())).append("\n");
+        reporte.append("\n• Agua: ").append(recomendaciones.RcConsumoAgua(persona.med.consumoAguaAdecuado(persona.actF, persona), persona)).append("\n");
+        reporte.append("\n• Actividad: ").append(recomendaciones.RcActividadFisica(persona.getEdad(), persona.actF.duracionMinutos)).append("\n");
+        reporte.append("\n• Frecuencia Cardíaca: ").append(recomendaciones.RcFrecuenciaCardiaca(persona.med.getFrecuenciaCardiaca(), persona.med.frecuenciaMinima, persona.med.frecuenciaMaxima)).append("\n");
         //Estado general
         reporte.append("\n\nESTADO GENERAL: ").append(estadoGeneral);
         reporte.append("\nPUNTAJE DE SALUD: ").append(puntajeSalud).append("/100");

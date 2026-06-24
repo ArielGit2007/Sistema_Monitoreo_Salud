@@ -20,7 +20,7 @@ public class Recomendacion {
         }
         else{
             return "Tu consumo de agua es insuficiente. Asegúrate de beber suficiente agua a lo largo del día, especialmente antes, durante y después " +
-            "de la actividad física para mantener una buena hidratación. Tu ingesta de agua debe como minimo ser de"+per.med.consumoObjetivoAgua;
+            "de la actividad física para mantener una buena hidratación. Tu ingesta de agua debe como minimo ser de: "+ String.format("%.2f", per.med.consumoObjetivoAgua)+" litros diarios.";
         }
 }
     public String RcHorasSueño(double horasSueño, int edad) {
