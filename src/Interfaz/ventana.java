@@ -704,14 +704,16 @@ public class ventana {
         JButton btnVolver;
         btnVolver=crearBotonVolver();
         btnVolver.setPreferredSize(new Dimension(200, 30));
-        btnVolver.setBackground(new Color(0, 120, 215));
+        btnVolver.setBackground(new Color(0, 170, 255));
+        btnVolver.setForeground(Color.WHITE);
+        btnVolver.setFont(new Font("Segoe UI", Font.BOLD, 14));
         btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnVolver.setBackground(new Color(33, 159, 255));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnVolver.setBackground(new Color(0, 120, 215));
+                btnVolver.setBackground(new Color(0, 170, 255));
             }
         });
 
@@ -791,6 +793,19 @@ public class ventana {
             }
         });
 
+        btn3.setForeground(Color.WHITE);
+        btn3.setBackground(new Color(0, 170, 255));
+        btn3.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btn5.setForeground(Color.WHITE);
+        btn5.setBackground(new Color(0, 170, 255));
+        btn5.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btn10.setForeground(Color.WHITE);
+        btn10.setBackground(new Color(0, 170, 255));
+        btn10.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnVolver.setForeground(Color.WHITE);
+        btnVolver.setBackground(new Color(0, 170, 255));
+        btnVolver.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
         panelInferior.add(btn3);
         panelInferior.add(btn5);
         panelInferior.add(btn10);
@@ -807,13 +822,14 @@ public class ventana {
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 24));
         titulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         titulo.setForeground(new Color(74, 176, 243));
+        panelReporte.setBackground(new Color(195,250,241));
         panelReporte.add(titulo, BorderLayout.NORTH);
 
 
         sistema.cargarDatosGuardados();
         JTextArea areaReporte = new JTextArea();
         areaReporte.setEditable(false);
-        areaReporte.setBackground(new Color(195, 250, 241));
+        areaReporte.setBackground(new Color(199, 249, 250));
         areaReporte.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 
         areaReporte.setText(sistema.generarReporte());
